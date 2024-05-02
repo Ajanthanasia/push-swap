@@ -1,8 +1,6 @@
 <?php
 include_once "print_array.php";
 include_once "command_her.php";
-$there = array();
-$lb = array();
 
 $there = array();
 $lb = array();
