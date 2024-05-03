@@ -34,6 +34,13 @@ for ($i = 1; $i < $len; $i++) {
         } else if ($comm == 'rr') {
             $there = ra($there);
             $lb = rb($lb);
+        } else if ($comm == 'rra') {
+            $there = rra($there);
+        } else if ($comm == 'rrb') {
+            $lb = rrb($lb);
+        } else if ($comm == 'rrr') {
+            $there = rra($there);
+            $lb = rrb($lb);
         }
     }
 }
