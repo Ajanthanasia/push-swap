@@ -22,3 +22,51 @@ function sb($lb)
     }
     return $lb;
 }
+
+function pa($there, $lb)
+{
+    $len = count($lb);
+    if ($len > 0) {
+        $removeEle = array_shift($lb);
+        array_unshift($there, $removeEle);
+    }
+    $arrs = [
+        $there,
+        $lb
+    ];
+    return $arrs;
+}
+
+function pb($there, $lb)
+{
+    $len = count($there);
+    if ($len > 0) {
+        $removeEle = array_shift($there);
+        array_unshift($lb, $removeEle);
+    }
+    $arrs = [
+        $there,
+        $lb
+    ];
+    return $arrs;
+}
+
+function ra($there)
+{
+    $len = count($there);
+    if ($len > 0) {
+        $firstElement = array_shift($there);
+        array_push($there, $firstElement);
+    }
+    return $there;
+}
+
+function rb($lb)
+{
+    $len = count($lb);
+    if ($len > 0) {
+        $firstElement = array_shift($lb);
+        array_push($lb, $firstElement);
+    }
+    return $lb;
+}
