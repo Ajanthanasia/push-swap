@@ -16,6 +16,15 @@ for ($i = 1; $i < $len; $i++) {
             $there = her($there);
             printArray('there', $there);
             printArray('lb', $lb);
+        } else if ($comm == 'sb' || $comm == 'Sb' || $comm == 'SB') {
+            $lb = sb($lb);
+            printArray('there', $there);
+            printArray('lb', $lb);
+        } else if ($comm == 'sc') {
+            $there = her($there);
+            $lb = sb($lb);
+            printArray('there', $there);
+            printArray('lb', $lb);
         }
     }
 }
