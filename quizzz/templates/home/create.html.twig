@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <form method="post">
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    <!-- Add more form fields here -->
+    <button type="submit">Submit</button>
+    {{ form_end(form) }}
+</form>
+
+{% endblock %}
