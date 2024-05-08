@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <form method="post">
+    <form method="post" action="{{ path('store-user') }}">
     {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.email) }}
