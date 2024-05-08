@@ -70,3 +70,23 @@ function rb($lb)
     }
     return $lb;
 }
+
+function rra($there)
+{
+    $len = count($there);
+    if ($len > 1) {
+        $ele = array_pop($there);
+        array_unshift($there, $ele);
+    }
+    return $there;
+}
+
+function rrb($lb)
+{
+    $len = count($lb);
+    if ($len > 1) {
+        $ele = array_pop($lb);
+        array_unshift($lb, $ele);
+    }
+    return $lb;
+}
