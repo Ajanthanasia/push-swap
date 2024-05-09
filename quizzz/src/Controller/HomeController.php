@@ -42,7 +42,7 @@ class HomeController extends AbstractController
             $user = new User();
             $user->setName($userData['name']);
             $user->setEmail($userData['email']);
-            $user->setRoles(['action' => 'nothing']);
+            $user->setRoles(['user', 'admin']);
             $password = $hash->hashPassword($user, $userData['password']);
             $user->setPassword($password);
 
