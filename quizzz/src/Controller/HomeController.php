@@ -39,13 +39,15 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userData = $form->getData();
 
+            $now = new \DateTimeImmutable();
+
             $user = new User();
             $user->setName($userData['name']);
             $user->setEmail($userData['email']);
             $user->setRoles(['user', 'admin']);
             $password = $hash->hashPassword($user, $userData['password']);
             $user->setPassword($password);
-
+            $user->setCreatedAt($now);
             $entityManager->persist($user);
             $entityManager->flush();
 
