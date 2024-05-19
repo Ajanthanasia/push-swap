@@ -12,15 +12,16 @@
     <h1>Welcome to Dashboard ✅</h1>
      {% if app.user %}
     <div>Hi, {{ app.user.getName }} </div>
+    {% endif %}
     <div> 
         <a href="{{ path('app_logout') }}">
             <button> Logout </button>
         </a>
     </div>
-    {% endif %}
-    <ul>
-        <li>Your controller at <code>E:/laragon/www/push-swap/quizzz/src/Controller/DashboardController.php</code></li>
-        <li>Your template at <code>E:/laragon/www/push-swap/quizzz/templates/dashboard/index.html.twig</code></li>
-    </ul>
+    <div>
+        <a href="{{path('app_email_verify')}}">
+            <button>Email Verify</button>
+        </a>
+    </div>
 </div>
 {% endblock %}
