@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\RegisterUserFormType;
+use App\Repository\CategorieRepository;
+use App\Repository\QuestionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
@@ -15,10 +18,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(QuestionRepository $questionRepository): Response
     {
+        $questions = $questionRepository->getAll();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'Quizz Competition',
+            'questions' => $questions,
         ]);
     }
 

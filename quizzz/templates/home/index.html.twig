@@ -3,29 +3,64 @@
 {# {% block title %}Hello HomeController!{% endblock %} #}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="example-wrapper">
+		<h1>
+			Welcome to Quiz Competition
+		</h1>
+		<div>
+			{% if app.user %}
+				Hi,
+				{{ app.user.getName}}
+				<div>
+					<a href="{{path('app_dashboard')}}">
+						<button>My Profile</button>
+					</a>
+				</div>
+			{% else %}
+				<div>
+					<a href="{{ path('app_login') }}">
+						<button>Login</button>
+					</a>
+				</div>
+				<div>
+					<a href="{{ path('register-user') }}">
+						<button>Register</button>
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
 
-    This friendly message is coming from:
-    {# <ul>
-        <li>Your controller at <code>E:/laragon/www/push-swap/quizzz/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>E:/laragon/www/push-swap/quizzz/templates/home/index.html.twig</code></li>
-    </ul> #}
-    <div>
-        <a href="{{ path('app_login') }}">
-            <button>Login</button>
-        </a>
-    </div>
-    <div>
-    <a href="{{ path('register-user') }}">
-        <button>Register</button>
-    </a>
-    </div>
-</div>
+	<div class="example-wrapper">
+		{% for question in questions %}
+			<div>
+				<div>
+					{{ loop.index }}
+					)
+					{{ question.question}}
+				</div>
+				<div>
+					{% if app.user %}
+						<a href="#">
+							<button>Answer question</button>
+						</a>
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 
 {% endblock %}
