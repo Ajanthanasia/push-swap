@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,6 +24,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[ORM\Column]
+    private ?\DateTime $emailVerifiedAt;
+
     /**
      * @var list<string> The user roles
      */
@@ -34,6 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt;
 
     public function getId(): ?int
     {
@@ -109,6 +116,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getEmailVerifiedAt(): ?\DateTime
+    {
+        return $this->emailVerifiedAt;
+    }
+
+    public function setEmailVerifiedAt(\DateTime $emailVerifiedAt): static
+    {
+        $this->emailVerifiedAt = $emailVerifiedAt;
         return $this;
     }
 
