@@ -18,12 +18,14 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(QuestionRepository $questionRepository): Response
+    public function index(QuestionRepository $questionRepository, CategorieRepository $categorieRepository): Response
     {
         $questions = $questionRepository->getAll();
+        $categories = $categorieRepository->getAll();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'Quizz Competition',
             'questions' => $questions,
+            'categories' => $categories,
         ]);
     }
 
