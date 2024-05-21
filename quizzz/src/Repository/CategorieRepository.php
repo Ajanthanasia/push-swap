@@ -47,4 +47,14 @@ class CategorieRepository extends ServiceEntityRepository
             ->getResult();
         return $data;
     }
+
+    public function getCategorie(int $id)
+    {
+        $data = $this->createQueryBuilder('c')
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+        return $data;
+    }
 }
