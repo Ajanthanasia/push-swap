@@ -34,7 +34,7 @@
 										</div>
 										<div>
 											{% if app.user %}
-                                            <a href="#">
+                                            <a href="{{ path('app_answer_show',{'id':question.id}) }}">
                                             <button>Show Question</button>
                                             </a>
 											{% endif %}

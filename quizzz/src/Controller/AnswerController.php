@@ -21,4 +21,13 @@ class AnswerController extends AbstractController
             'questions' => $questions,
         ]);
     }
+
+    #[Route('/answer/show/{id}', name: 'app_answer_show')]
+    public function show(int $id, QuestionRepository $questionRepository)
+    {
+        $question = $questionRepository->getQuestion($id);
+        return $this->render('answer/show.html.twig', [
+            'question' => $question,
+        ]);
+    }
 }

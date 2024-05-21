@@ -57,4 +57,14 @@ class QuestionRepository extends ServiceEntityRepository
             ->getResult();
         return $data;
     }
+
+    public function getQuestion(int $id)
+    {
+        $data = $this->createQueryBuilder('p')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+        return $data;
+    }
 }
