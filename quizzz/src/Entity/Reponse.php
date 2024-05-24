@@ -22,6 +22,9 @@ class Reponse
     #[ORM\Column(nullable: true)]
     private ?int $reponse_expected = null;
 
+    #[ORM\ManytoOne(targetEntity: Question::class, inversedBy: 'question')]
+    private Question $question;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,17 @@ class Reponse
     {
         $this->reponse_expected = $reponse_expected;
 
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): self
+    {
+        $this->question = $question;
         return $this;
     }
 }

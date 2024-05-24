@@ -18,11 +18,20 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h3>Q :
-			{{question.question}}</h3>
-		<input type="text" placeholder="Answer?"/>
-		<input type="hidden" value="{{question.id}}"/>
-		<br>
-		<button>Submit</button>
+		<form method="post" action="{{path('app_answer_store')}}">
+			<h3>
+				Q :
+				{{question.question}}
+			</h3>
+			<input type="hidden" name="id_question" value="{{question.id}}"/>
+			{% for reponse in reponses %}
+				<div>
+					<input type="radio" name="id_reponse" id="{{reponse.id}}" value="{{reponse.id}}" {% if selectedResponseId is defined and selectedResponseId == reponse.id %} checked {% endif %}/>
+					<label for="{{reponse.id}}">{{reponse.reponse}}</label>
+				</div>
+			{% endfor %}
+			<input type="hidden" name="id_user" value="{{app.user.id}}"/>
+			<button type="submit">Submit</button>
+		</form>
 	</div>
 {% endblock %}

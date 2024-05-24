@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\QuestionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -46,5 +48,18 @@ class Question
         $this->question = $question;
 
         return $this;
+    }
+
+    #[ORM\OneToMany(targetEntity: Reponse::class, mappedBy: 'question')]
+    private Collection $reponse;
+
+    public function __construct()
+    {
+        $this->reponse = new ArrayCollection();
+    }
+
+    public function getReponse(): Collection
+    {
+        return $this->reponse;
     }
 }
