@@ -51,4 +51,18 @@ class AnswerRepository extends ServiceEntityRepository
             ->getResult();
         return $data;
     }
+
+    public function getAnswerWithUsers(int $id)
+    {
+        $data = $this->createQueryBuilder('p')
+            ->addSelect('u.name AS name')
+            ->addSelect('r.reponse as reponse')
+            ->innerJoin('App\Entity\User', 'u', 'WITH', 'p.id_user = u.id')
+            ->innerJoin('App\Entity\Reponse', 'r', 'WITH', 'p.id_reponse = r.id')
+            ->where('p.id_question = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+        return $data;
+    }
 }

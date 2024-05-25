@@ -27,6 +27,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $emailVerifiedAt;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $loginAt;
+
     /**
      * @var list<string> The user roles
      */
@@ -138,6 +141,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailVerifiedAt(\DateTimeImmutable $emailVerifiedAt): static
     {
         $this->emailVerifiedAt = $emailVerifiedAt;
+        return $this;
+    }
+
+    public function getLoginAt(): ?\DateTimeImmutable
+    {
+        return $this->loginAt;
+    }
+
+    public function setLoginAt(\DateTimeImmutable $loginAt): static
+    {
+        $this->loginAt = $loginAt;
         return $this;
     }
 

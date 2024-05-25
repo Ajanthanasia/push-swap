@@ -44,9 +44,13 @@
 			</a>
 		</div>
 		<hr>
-		<span>Admin Features</span>
-		<div>
-			<button>Accounts</button>
-		</div>
+		{% if 'admin' in app.user.roles %}
+			<span>Admin Features</span>
+			<div>
+				<a href="{{path('app_admin_accounts')}}">
+					<button>Accounts</button>
+				</a>
+			</div>
+		{% endif %}
 	</div>
 {% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminAccountsController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>User Accounts</h1>
+
+		List of all users:
+		<table class="table">
+			<tr>
+				<th>User</th>
+				<th>Email</th>
+				<th>Last Login</th>
+				<th>Roles</th>
+				<th>Action</th>
+			</tr>
+			{% for user in users %}
+				<tr>
+					<td>{{user.name}}</td>
+					<td>{{user.email}}</td>
+					<td>
+						{% if user.loginAt %}
+							{{user.loginAt | date('Y/m/d h:i:s a')}}
+						{% else %}
+							Not SignIn
+						{% endif %}
+					</td>
+					<td>
+						{% if "user" in user.roles %}
+							User
+						{% endif %}
+						{% if "admin" in user.roles %}
+							Admin
+						{% endif %}
+					</td>
+					<td>
+						<a href="{{path('app_admin_accounts_destroy',{'id':user.id})}}">
+							<button>
+								Delete
+							</button>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

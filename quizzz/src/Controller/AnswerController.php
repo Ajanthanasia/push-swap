@@ -42,11 +42,13 @@ class AnswerController extends AbstractController
             $userId = $user->getId();
             $answers = $answerRepository->getAnswer($id, $userId);
         }
+        $sheets = $answerRepository->getAnswerWithUsers($id);
         return $this->render('answer/show.html.twig', [
             'question' => $question,
             'reponses' => $reponses,
             'form' => $form->createView(),
             'answers' => $answers,
+            'sheets' => $sheets,
         ]);
     }
 
@@ -56,7 +58,7 @@ class AnswerController extends AbstractController
         $form = $this->createForm(AnswerType::class);
         $form->handleRequest($request);
         $questionId =  $request->request->get('id_question');
-        $reponseId = $request->request->get('id_reponse');
+        // $reponseId = $request->request->get('id_reponse');
         $selectedResponseId = null;
         if ($request->request->has('id_reponse')) {
             $selectedResponseId = $request->request->get('id_reponse');
@@ -67,7 +69,7 @@ class AnswerController extends AbstractController
             $authId = $request->request->get('id_user');
             $answer = new Answer();
             $answer->setIdQuestion($questionId);
-            $answer->setIdReponse($questionId);
+            $answer->setIdReponse($selectedResponseId);
             $answer->setIdUser($authId);
             $answer->setResult($resultValue);
             $entityManager->persist($answer);
@@ -77,10 +79,6 @@ class AnswerController extends AbstractController
         }
         $question = $questionRepository->getQuestion($questionId);
         $reponses = $reponseRepository->getQuesReponse($questionId);
-        return $this->render('answer/show.html.twig', [
-            'question' => $question,
-            'reponses' => $reponses,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('app_dashboard');
     }
 }
