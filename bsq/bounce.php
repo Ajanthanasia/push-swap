@@ -2,27 +2,27 @@
 function findLargestSquare($map) {
 
     $rows = count($map);
-    echo $rows;
     $cols = count($map[0]);
-    echo "---". $cols;
     $maxSize = 0;
   
     // Create a DP table to store the size of the largest square ending at each cell
     $dp = array_fill(0, $rows, array_fill(0, $cols, 0));
-  
+
     // Iterate through the map
-    // for ($i = 0; $i < $rows; $i++) {
-    //   for ($j = 0; $j < $cols; $j++) {
-    //     if ($map[$i][$j] == '.') {
-    //       // If it's a free space, consider the size of the square ending at the previous cells
-    //       $dp[$i][$j] = 1 + min($dp[$i - 1][$j -1], $dp[$i][$j - 1], isset($dp[$i - 1][$j - 1]) ? $dp[$i - 1][$j - 1] : 0);
-    //       $maxSize = max($maxSize, $dp[$i][$j]);
-    //     } else {
-    //       // Obstacle, reset the size to 0
-    //       $dp[$i][$j] = 0;
-    //     }
-    //   }
-    // }
+    for ($i = 0; $i < $rows; $i++) {
+      for ($j = 0; $j < $cols; $j++) {
+        // echo $map[$i][$j].'';
+        if ($map[$i][$j] == '.') {
+          // If it's a free space, consider the size of the square ending at the previous cells
+        //   $dp[$i][$j] = 1 + min($dp[$i - 1][$j], $dp[$i][$j - 1], isset($dp[$i - 1][$j - 1]) ? $dp[$i - 1][$j - 1] : 0);
+        //   $maxSize = max($maxSize, $dp[$i][$j]);
+        } else {
+          // Obstacle, reset the size to 0
+          $dp[$i][$j] = 0;
+        }
+      }
+    //   echo "\n";
+    }
   
     return $maxSize;
   }
@@ -36,14 +36,14 @@ function findLargestSquare($map) {
 //   }
 
   $map=[];
-  $line = readline("Enter line 1 line : ");
+  $line = readline("");
   $firstLineCount = strlen($line);
   $map[]=str_split($line);
 //   echo $map[0][0];
 //   echo $map[0][1];
 //   echo $map[0][2];
   for($i=1;$i<$firstLineCount;$i++){
-    $lineOth = readline("Enter line ".($i+1)." : ");
+    $lineOth = readline("");
     $map[]=str_split($lineOth);
   }
 //   echo $map[0][0];
