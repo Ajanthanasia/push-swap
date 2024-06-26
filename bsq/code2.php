@@ -19,7 +19,7 @@ function findLargestSquare($input)
 
     // Fill the dp array
     for ($i = 0; $i < $n; $i++) {
-        for ($j = 0; $j < count($matrix[$i]); $j++) {
+        for ($j = 0; $j < min(count($matrix[$i]), $m); $j++) {
             if ($matrix[$i][$j] == '.') {
                 if ($i == 0 || $j == 0) {
                     $dp[$i][$j] = 1;
