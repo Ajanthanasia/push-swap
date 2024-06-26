@@ -18,8 +18,25 @@ function findLargestSquare($input)
     $maxPos = [0, 0];
 
     // Fill the dp array
+    // for ($i = 0; $i < $n; $i++) {
+    //     for ($j = 0; $j < $m; $j++) {
+    //         if ($matrix[$i][$j] == '.') {
+    //             if ($i == 0 || $j == 0) {
+    //                 $dp[$i][$j] = 1;
+    //             } else {
+    //                 $dp[$i][$j] = min($dp[$i - 1][$j], $dp[$i][$j - 1], $dp[$i - 1][$j - 1]) + 1;
+    //             }
+
+    //             if ($dp[$i][$j] > $maxSize) {
+    //                 $maxSize = $dp[$i][$j];
+    //                 $maxPos = [$i, $j];
+    //             }
+    //         }
+
+    //     }
+    // }
     for ($i = 0; $i < $n; $i++) {
-        for ($j = 0; $j < $m; $j++) {
+        for ($j = 0; $j < count($matrix[$i]); $j++) {
             if ($matrix[$i][$j] == '.') {
                 if ($i == 0 || $j == 0) {
                     $dp[$i][$j] = 1;
@@ -51,7 +68,6 @@ function findLargestSquare($input)
     return trim($result);
 }
 
-// Example usage:
 $input = "";
 $no = readline();
 for ($i = 0; $i < $no; $i++) {
@@ -59,6 +75,5 @@ for ($i = 0; $i < $no; $i++) {
     $input .= $type . "\n";
 }
 
-// $input = "....\n....\n....\noooo";
 $output = findLargestSquare($input);
 echo $output;
