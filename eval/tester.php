@@ -30,4 +30,6 @@ function eval_expr($expr)
 }
 
 $expr = $argv[1];
-echo eval_expr($expr);
+
+// echo eval_expr($expr);
+// echo handle_input(eval_expr($expt));
