@@ -23,12 +23,15 @@ function evaluate_expression($expr)
       return $intNum * evaluate_expression($restOfString);
     } else if ($operator == "/") {
       return $intNum / evaluate_expression($restOfString);
+    }else if ($operator == "%") {
+      return $intNum % evaluate_expression($restOfString);
     }
   }
 }
 // Example usage
 // $result = evaluate_expression("1+21");
-// $result = evaluate_expression("12-3");
-// $result = evaluate_expression("12*12");
-$result = evaluate_expression("12/2");
+// $result = evaluate_expression("12+3-6/3");
+$result = evaluate_expression("19%5");
+// $result = evaluate_expression("50%6");
+// $result = evaluate_expression("12/2");
 echo $result;
