@@ -1,5 +1,5 @@
 <?php
-function evaluate_expression($expr)
+function eval_expr($expr)
 {
   if (is_numeric($expr)) {
     $intValue = intVal($expr);
@@ -16,22 +16,22 @@ function evaluate_expression($expr)
     $i++;
     $restOfString = substr($expr, $i, strlen($expr));
     if ($operator == "+") {
-      return $intNum + evaluate_expression($restOfString);
+      return $intNum + eval_expr($restOfString);
     } else if ($operator == "-") {
-      return $intNum - evaluate_expression($restOfString);
+      return $intNum - eval_expr($restOfString);
     } else if ($operator == "*") {
-      return $intNum * evaluate_expression($restOfString);
+      return $intNum * eval_expr($restOfString);
     } else if ($operator == "/") {
-      return $intNum / evaluate_expression($restOfString);
-    }else if ($operator == "%") {
-      return $intNum % evaluate_expression($restOfString);
+      return $intNum / eval_expr($restOfString);
+    } else if ($operator == "%") {
+      return $intNum % eval_expr($restOfString);
     }
   }
 }
 // Example usage
-// $result = evaluate_expression("1+21");
-// $result = evaluate_expression("12+3-6/3");
-$result = evaluate_expression("19%5");
-// $result = evaluate_expression("50%6");
-// $result = evaluate_expression("12/2");
+// $result = eval_expr("1+21");
+// $result = eval_expr("12+3-6/3");
+// $result = eval_expr("19%50");
+// $result = eval_expr("50%6");
+$result = eval_expr("12/2+3");
 echo $result;
