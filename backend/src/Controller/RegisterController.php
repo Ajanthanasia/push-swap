@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class RegisterController extends AbstractController
     }
 
     #[Route('api/register', name: 'api_register', methods: ['post'])]
-    public function register(Request $request, EntityManagerInterface $em): Response
+    public function register(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         if ($data['password'] == $data['confirm_password']) {
@@ -34,11 +35,13 @@ class RegisterController extends AbstractController
             return $this->json([
                 'status' => true,
                 'message' => 'Successfully created',
+                'MsgType' => "success",
             ]);
         } else {
             return $this->json([
                 'status' => false,
                 'message' => 'Passwords does not matched.',
+                "MsgType" => 'danger',
             ]);
         }
     }
