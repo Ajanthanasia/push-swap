@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
@@ -22,14 +23,19 @@ class RegisterController extends AbstractController
     }
 
     #[Route('api/register', name: 'api_register', methods: ['post'])]
-    public function register(Request $request, EntityManagerInterface $em): JsonResponse
+    public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hash): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         if ($data['password'] == $data['confirm_password']) {
             $user = new User();
             $user->setName($data['name']);
             $user->setEmail($data['email']);
-            $user->setPassword($data['password']);
+            $hashedPassword = $hash->hashPassword(
+                $user,
+                $data['password']
+            );
+            $user->setPassword($hashedPassword);
+            $user->setRoles(['user']);
             $em->persist($user);
             $em->flush();
             return $this->json([

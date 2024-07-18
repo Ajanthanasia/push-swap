@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,7 +25,7 @@ class User
     private ?string $password = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $role = null;
+    private ?array $roles = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created_at = null;
@@ -53,6 +55,23 @@ class User
         return $this->email;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles ?? [];
+    }
+
+
     public function setEmail(?string $email): static
     {
         $this->email = $email;
@@ -68,18 +87,6 @@ class User
     public function setPassword(?string $password): static
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getRole(): ?int
-    {
-        return $this->role;
-    }
-
-    public function setRole(?int $role): static
-    {
-        $this->role = $role;
 
         return $this;
     }
@@ -106,5 +113,11 @@ class User
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
