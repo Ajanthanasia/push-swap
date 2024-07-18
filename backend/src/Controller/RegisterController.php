@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +27,7 @@ class RegisterController extends AbstractController
     public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hash): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
+        $now = new DateTimeImmutable();
         if ($data['password'] == $data['confirm_password']) {
             $user = new User();
             $user->setName($data['name']);
@@ -36,6 +38,8 @@ class RegisterController extends AbstractController
             );
             $user->setPassword($hashedPassword);
             $user->setRoles(['user']);
+            $user->setCreatedAt($now);
+            $user->setUpdatedAt($now);
             $em->persist($user);
             $em->flush();
             return $this->json([
