@@ -39,7 +39,8 @@ function RegisterPage() {
         }
         if (!hasError) {
             setLoading(true);
-            const url = 'http://127.0.0.1:4000/api/register';
+            // const url = 'http://127.0.0.1:4000/api/register';
+            const url = 'http://localhost:4000/api/register';
             const regi = async (event) => {
                 try {
                     const response = await axios.post(`${url}`, {
