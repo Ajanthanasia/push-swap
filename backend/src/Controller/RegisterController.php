@@ -36,13 +36,11 @@ class RegisterController extends AbstractController
             return $this->json([
                 'status' => true,
                 'message' => 'Successfully created',
-                'MsgType' => "success",
             ]);
         } else {
             return $this->json([
                 'status' => false,
                 'message' => 'Passwords does not matched.',
-                "MsgType" => 'danger',
             ]);
         }
     }
