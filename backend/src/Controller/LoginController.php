@@ -23,13 +23,12 @@ class LoginController extends AbstractController
         $email = $data['email'] ?? null;
         $password = $data['password'] ?? null;
         if (!$email || !$password) {
-            return new JsonResponse(['TypeDanger' => 'Invalid credentials'], JsonResponse::HTTP_BAD_REQUEST);
+            return new JsonResponse(['status' => false, 'message' => 'Invalid credentials'], JsonResponse::HTTP_BAD_REQUEST);
         } else {
             $user = $userRepository->findOneUser($email);
-            // $user = $this->userProvider->loadUserByIdentifier($email);
 
             if ($user == null) {
-                return new JsonResponse(['TypeDanger' => 'User does not exists'], JsonResponse::HTTP_BAD_REQUEST);
+                return new JsonResponse(['status' => false, 'message' => 'User does not exists'], JsonResponse::HTTP_BAD_REQUEST);
             } else {
                 if (password_verify($password, $user->getPassword())) {
                     return $this->json([
@@ -38,11 +37,9 @@ class LoginController extends AbstractController
                         'user_id' => $user->getId(),
                     ]);
                 } else {
-                    return new JsonResponse(['TypeDanger' => 'User Passwords does not correct'], JsonResponse::HTTP_BAD_REQUEST);
+                    return new JsonResponse(['status' => false, 'message' => 'User Passwords does not correct'], JsonResponse::HTTP_BAD_REQUEST);
                 }
             }
         }
-
-        // return $this->json($data['email']);
     }
 }

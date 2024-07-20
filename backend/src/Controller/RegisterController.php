@@ -14,15 +14,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends AbstractController
 {
-    #[Route('apij', name: 'app_register')]
-    public function index(): Response
-    {
-        // return $this->render('register/index.html.twig', [
-        //     'controller_name' => 'RegisterController',
-        // ]);
-        dd('hi');
-    }
-
     #[Route('api/register', name: 'api_register', methods: ['post'])]
     public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hash): JsonResponse
     {
