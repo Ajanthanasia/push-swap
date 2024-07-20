@@ -6,3 +6,7 @@ controllers:
 api:
     resource: .
     type: api_platform
+api_login_user:
+    path: /api/login-user
+    controller: App\Controller\LoginController::login
+    methods: POST
