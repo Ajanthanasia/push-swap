@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,11 +16,18 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class RegisterController extends AbstractController
 {
     #[Route('api/register', name: 'api_register', methods: ['post'])]
-    public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hash): JsonResponse
+    public function register(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hash, UserRepository $userRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $now = new DateTimeImmutable();
         if ($data['password'] == $data['confirm_password']) {
+            $user = $userRepository->findOneUser($data['email']);
+            if ($user != null) {
+                return $this->json([
+                    'status' => false,
+                    'message' => 'Email already exists',
+                ]);
+            }
             $user = new User();
             $user->setName($data['name']);
             $user->setEmail($data['email']);
