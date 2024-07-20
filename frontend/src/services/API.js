@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const REGISTER_URL = 'http://127.0.0.1:4000/api/register';
-const LOGIN_URL = 'login url';
+const LOGIN_URL = 'http://127.0.0.1:4000/api/login-user';
 
 export const RegisterAPI = (inputs) => {
     let data = {
@@ -22,9 +22,9 @@ export const RegisterAPI = (inputs) => {
 
 export const LoginApi = (inputs) => {
     let data = {
-        username: inputs.username,
+        email: inputs.username,
         password: inputs.password,
     }
-    // console.log(data)
-    // return axios.post(LOGIN_URL,data)
+    console.log(data)
+    return axios.post(LOGIN_URL,data)
 };

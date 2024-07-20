@@ -1,10 +1,12 @@
 import { useState } from "react";
 import './RegisterPage.css';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link ,useNavigate } from 'react-router-dom';
 import { RegisterAPI } from '../services/API';
 import axios from "axios";
 
 function RegisterPage() {
+    const navigate = useNavigate();
+
     const initialStateErrors = {
         username: { required: false },
         email: { required: false },
@@ -48,7 +50,15 @@ function RegisterPage() {
                         password: inputs.password,
                         confirm_password: inputs.confirm_password,
                     });
+                    
                     console.log(response);
+                    if (response.data.status==true){
+                        console.log("here--",response.data.status)
+                        navigate('/');
+                    }
+                    else {
+                        error.custom_error=response.data.message
+                    }
                     // setMsg(response.data.message);
                 } catch (error) {
                     console.log(error);
@@ -70,7 +80,7 @@ function RegisterPage() {
             //     setLoading(false);
             // })
         }
-        // setErrors({ ...error })
+        setErrors({ ...error })
     }
 
     const [inputs, setInputs] = useState({

@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link,useNavigate } from 'react-router-dom';
 import { LoginApi } from '../services/API';
 function LoginPage(){
+    const navigate = useNavigate();
+
     const initialStateErrors={
-        username:{required:false},
+        email:{required:false},
         password:{required:false},
         custom_error:null
     }
@@ -15,39 +17,35 @@ function LoginPage(){
         event.preventDefault();
         let error = initialStateErrors;
         let hasError=false
-        if(inputs.username==""){
-            error.username.required=true;
+        if(inputs.email==""){
+            error.email.required=true;
             hasError=true;
         }
         if(inputs.password==""){
             error.password.required=true;
             hasError=true;
         }
-        // if(!hasError){
-        //     setLoading(true)
-        //     LoginApi(inputs).then((response)=>{
-        //         if (response.data.MsgType=="success"){
-        //             storeUserData(response.data);
-        //         }
+        if(!hasError){
+            setLoading(true)
+            LoginApi(inputs).then((response)=>{
+                if (response.data.status==true){
+                    navigate('/Admin_dashboard');
+                }
                 
-        //         else if(response.data.MsgType=="warning"){
-        //             setErrors({...errors,custom_error:response.data.msg})
-        //         }
-        //         else if(response.data.MsgType=="danger"){
-        //             setErrors({...errors,custom_error:response.data.msg})
-                    
-        //         }
-        //     }).catch((err)=>{
-        //         console.log(err);
-        //     }).finally(()=>{
-        //         setLoading(false);
-        //     })
-        // }
+                else{
+                    error.custom_error=response.data.msg
+                }
+            }).catch((err)=>{
+                console.log(err);
+            }).finally(()=>{
+                setLoading(false);
+            })
+        }
         setErrors({...error})
     }
 
     const [inputs,setInputs] =useState({
-        username:"",
+        email:"",
         password:""
     })
 
@@ -64,11 +62,11 @@ function LoginPage(){
                         <h2 className="text-center">Login Now</h2>
                         <form className="login-form" onSubmit={handleSubmit} action="">
                         <div className="form-group">
-                            <label htmlFor="exampleInputEmail1" className="text-uppercase">Username</label>
-                            <input type="username"  className="form-control" name="username"  id="" onChange={handleInputs} placeholder="Username"  />
-                            {errors.username.required?
+                            <label htmlFor="exampleInputEmail1" className="text-uppercase">email</label>
+                            <input type="email"  className="form-control" name="email"  id="" onChange={handleInputs} placeholder="email"  />
+                            {errors.email.required?
                             (<span className="text-danger" >
-                                Username is required.
+                                email is required.
                             </span>):null
                             }
                         </div>
