@@ -29,7 +29,7 @@ class RegisterController extends AbstractController
                 ]);
             }
             $user = new User();
-            $user->setName($data['name']);
+            $user->setUsername($data['name']);
             $user->setEmail($data['email']);
             $hashedPassword = $hash->hashPassword(
                 $user,

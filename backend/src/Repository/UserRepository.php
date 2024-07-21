@@ -49,4 +49,23 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getAllUsers(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"user"%')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function showUserById($value): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
