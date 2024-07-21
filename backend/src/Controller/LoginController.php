@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Exception;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +51,22 @@ class LoginController extends AbstractController
                     ], JsonResponse::HTTP_BAD_REQUEST);
                 }
             }
+        }
+    }
+
+    #[Route('api/logout', name: 'api_logout', methods: ['post'])]
+    public function logout(): JsonResponse
+    {
+        try {
+            return $this->json([
+                'status' => true,
+                'message' => 'Successfully Logout',
+            ], 200);
+        } catch (Exception) {
+            return new JsonResponse([
+                "status" => false,
+                'message' => 'Error Happened'
+            ], 500);
         }
     }
 }
